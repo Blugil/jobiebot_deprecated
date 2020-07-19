@@ -1,7 +1,7 @@
 const commando = require('discord.js-commando');
-const getImages = require('../../db/dbGetImages');
-const addImages = require('../../db/dbAddImage');
-const mongo = require('../../db/db');
+const getImages = require('../../db/getdoc');
+const addImages = require('../../db/updatedoc');
+const mongo = require('../../db/mongo');
 
 require('dotenv').config();
 
@@ -20,26 +20,27 @@ class Add extends commando.Command {
 
     async run(message, args) {
 
-
+        //sets attachments equal to an array of discord message attachments
         let attachments = message.attachments.array();
 
-        let jobies = await getImages(mongo, db_name, collection_name)
-            .catch(function (e) {
-                console.log('error getting images');
+        //sets images equal to an array of image links stored on a database
+        let images = await getImages(mongo, db_name, collection_name);
+
+        //checks if there are attachments in the message 
+        if (attachments.length > 0) {
+
+            //pushes the urls from the message attachments to the image links array  
+            attachments.forEach(attachment => {
+                let url = attachment.url;
+                images.push(url);
             });
 
-        if (attachments.length > 0 && jobies !== null) {
-
-            attachments.forEach(element => {
-                let url = element.url;
-                jobies.push(url);
-            });
-
-            await addImages(mongo, db_name, collection_name, jobies).then(
-                await console.log(`${attachments.length} images uploaded successfully`),
+            //calls addImages to upload the new array of images to the database
+            await addImages(mongo, db_name, collection_name, images).then(
+                //sends success message in discord
                 await message.channel.send(`You attached ${attachments.length} images and I've worked some magic to upload all of them to the database (yes I promise they're there).`)
             ).catch(function (e) {
-                console.log('There was an error');
+                console.error('There was an error:' + e);
             });
         } else {
             await message.channel.send('No image attached! Try this command again with an image attachment.')

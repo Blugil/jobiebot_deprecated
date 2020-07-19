@@ -1,8 +1,8 @@
 const Commando = require('discord.js-commando');
 
 //database imports
-const mongo = require('./db/db');
-const dbConnect = require('./db/dbConnect')
+const mongo = require('./db/mongo');
+const dbConnect = require('./db/mongoconnect')
 
 //utility imports
 const react = require('./util/react');

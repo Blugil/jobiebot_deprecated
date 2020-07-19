@@ -1,6 +1,6 @@
 const commando = require('discord.js-commando');
-const mongo = require('../../db/db');
-const getImages = require('../../db/dbGetImages');
+const mongo = require('../../db/mongo');
+const getImages = require('../../db/getdoc');
 
 const db_name = process.env.DB_NAME;
 const collection_name = process.env.COLLECTION_NAME;
@@ -17,13 +17,20 @@ class Pic extends commando.Command {
 
     async run(message, args) {
 
-        let jobies = await getImages(mongo, db_name, collection_name);
+        //calls getImages to create an array of imamge links
+        let images = await getImages(mongo, db_name, collection_name);
 
-        if (jobies !== null && jobies.length > 0) {
-            let random = Math.floor(Math.random() * (jobies.length - 1));
+        //checks if images is not null and length is > 0
+        if (images !== null && images.length > 0) {
 
-            await message.channel.send(`Hi ${message.author} i love you! enjoy this cute pic of me that my lovely wife took ${jobies[random]}`);
+            //creates a random number based on array size
+            let random = Math.floor(Math.random() * (images.length - 1));
+
+            //sends a message with a link from the random index of our images array
+            await message.channel.send(`Hi ${message.author} i love you! enjoy this cute pic of me that my lovely wife took ${images[random]}`);
         } else {
+
+            //sends an error message if the array is null or = o
             await message.channel.send(`Hi ${message.author}, somehow there are no jobie pics right now! Try adding one and using this command again.`)
         }
     }
