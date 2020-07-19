@@ -1,11 +1,17 @@
 const Commando = require('discord.js-commando');
-const react = require('./util/react')
-const path = require('path')
 
-require('dotenv').config();
+//database imports
+const mongo = require('./db/db');
+const dbConnect = require('./db/dbConnect')
 
-let token = process.env.TOKEN;
-let channelID = process.env.CHANNEL_ID;
+//utility imports
+const react = require('./util/react');
+const path = require('path');
+require('dotenv').config()
+
+
+const token = process.env.TOKEN;
+const channelID = process.env.CHANNEL_ID;
 
 //instantiates a new comando client with !jobie as command prefix and autoreconnect set to true
 const client = new Commando.Client(({
@@ -17,14 +23,17 @@ const client = new Commando.Client(({
 
 //registers the commands under the simple directory
 client.registry.registerGroups(
-    [['simple', 'simple'], 
-    ['complex', 'complex']])
+        [
+            ['simple', 'simple'],
+            ['complex', 'complex']
+        ])
     .registerDefaults()
     .registerCommandsIn(path.join(__dirname, "commands"));
 
 //bot on ready function, logs ready and attempts to set status 
 client.on('ready', function () {
     console.log("Bot is connected");
+    dbConnect(mongo);
     client.user.setActivity('the thunder', {
         type: 'LISTENING'
     }).catch(function (e) {
