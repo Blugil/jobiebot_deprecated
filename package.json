@@ -8,11 +8,11 @@
   },
   "author": "@Blugil",
   "license": "ISC",
-  "description": "This is a bot I made for my girlfriend that sends her pictures of her cat on command",
+  "description": "Discord bot that sends images of my girlfriend's cat to a channel on command.",
   "dependencies": {
     "discord.js": "^11.6.4",
     "discord.js-commando": "^0.10.0",
     "dotenv": "^8.2.0",
-    "mongodb": "^3.5.9"
+    "mongodb": "^3.6.0"
   }
 }
