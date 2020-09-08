@@ -10,9 +10,11 @@
   "license": "ISC",
   "description": "Discord bot that sends images of my girlfriend's cat to a channel on command.",
   "dependencies": {
-    "discord.js": "^11.6.4",
-    "discord.js-commando": "^0.10.0",
+    "@discordjs/opus": "^0.3.2",
+    "discord.js": "^12.3.1",
+    "discord.js-commando": "git+https://github.com/discordjs/Commando.git",
     "dotenv": "^8.2.0",
-    "mongodb": "^3.6.0"
+    "mongodb": "^3.6.1",
+    "ytdl-core": "^3.2.2"
   }
 }

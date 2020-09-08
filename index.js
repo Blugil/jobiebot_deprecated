@@ -21,7 +21,7 @@ const client = new Commando.Client(({
 }));
 
 
-//registers the commands under the simple directory
+//registers the commands
 client.registry.registerGroups(
         [
             ['simple', 'simple'],
@@ -54,3 +54,5 @@ client.on('message', function (message) {
 
 
 client.login(token);
+
+module.exports = client;

@@ -33,6 +33,4 @@ class Recent extends commando.Command {
     }
 }
 
-
-
 module.exports = Recent;

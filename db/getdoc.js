@@ -5,14 +5,14 @@
  * @param {String} collectionName name of the string collection within the database who's data is being accessed
  * @returns {Array}
  */
-module.exports = async function(mongo, dbName, collectionName) {
+module.exports = async function (mongo, dbName, collectionName) {
     try {
         const db = mongo.db(dbName);
         const col = db.collection(collectionName);
-        const myDoc = await col.findOne(
-            { images: Array }
-        );
-        
+        const myDoc = await col.findOne({
+            images: Array
+        });
+
         if (myDoc) {
             let jobies = myDoc.images;
             return jobies;
@@ -24,4 +24,3 @@ module.exports = async function(mongo, dbName, collectionName) {
         console.log(err.stack);
     }
 }
-
