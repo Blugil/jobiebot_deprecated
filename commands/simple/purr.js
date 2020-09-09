@@ -1,6 +1,6 @@
 const commando = require('discord.js-commando');
 const ytdl = require('ytdl-core');
-const client = require('../../index');
+const discordclient = require('../../index');
 
 class Purr extends commando.Command {
     constructor(client) {
@@ -15,10 +15,15 @@ class Purr extends commando.Command {
     async run(message) {
         //pulls the voice object from the member object
         const { voice } = message.member;
-        //checks if user is in a voice channel
+        //creates dispatcher variable;
         let dispatcher;
-        //const args = message.content.slice(client.commandPrefix.length).trim().split(' ');
-
+        //gets the command prefix length
+        let commandPrefix = discordclient.commandPrefix;
+        //splits the args string starting after the command prefix
+        const args = message.content.slice(commandPrefix.length).trim().split(' ');
+        //checks if there is an arg, set time to value if yes, set time to 10000 if no
+        const time = (args[1] ? args[1] : 10000);
+        //checks if user is in a voice channel
         if (voice.channelID) {
             //joins the channel, returns a promise and a connection object
             await voice.channel.join().then((connection) => {
@@ -35,7 +40,7 @@ class Purr extends commando.Command {
                 catch (error) {
                     console.log(error);
                 }
-            }, 10000);
+            }, time);
         } else {
             //let user know if they aren't in voice
             await message.channel.send(`Hello, ${message.author}! Jobie can't purr unless his favorite people are with him uwu. Connect to voice so u can listen`);
