@@ -18,12 +18,12 @@ class Purr extends commando.Command {
         //creates dispatcher variable;
         let dispatcher;
         //gets the command prefix length
-        let commandPrefix = discordclient.commandPrefix;
+        let commandPrefix = discordclient.commandPrefix.length;
         //splits the args string starting after the command prefix
-        const args = message.content.slice(commandPrefix.length).trim().split(' ');
+        const args = message.content.slice(commandPrefix).trim().split(' ');
         //checks if there is an arg, set time to value if yes, set time to 10000 if no
-        const time = (args[1] ? args[1] : 10000);
-        //checks if user is in a voice channel
+        const time = (args[1] && Number.isInteger(parseInt(args[1])) ? args[1] : 10000);
+        //checks if user is in voice
         if (voice.channelID) {
             //joins the channel, returns a promise and a connection object
             await voice.channel.join().then((connection) => {
