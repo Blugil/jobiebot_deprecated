@@ -1,6 +1,6 @@
 const commando = require('discord.js-commando');
 const ytdl = require('ytdl-core');
-const discordclient = require('../../index');
+
 
 class Purr extends commando.Command {
     constructor(client) {
@@ -15,13 +15,11 @@ class Purr extends commando.Command {
     async run(message) {
         //pulls the voice object from the member object
         const { voice } = message.member;
-        //creates dispatcher variable;
+
         let dispatcher;
-        //gets the command prefix length
-        let commandPrefix = discordclient.commandPrefix.length;
         //splits the args string starting after the command prefix
-        const args = message.content.slice(commandPrefix).trim().split(' ');
-        //checks if there is an arg, set time to value if yes, set time to 10000 if no
+        const args = message.content.slice(this.client.commandPrefix.length).trim().split(' ');
+        //sets variable time to either the value of the second arg or 10000 
         const time = (args[1] && Number.isInteger(parseInt(args[1])) ? args[1] : 10000);
         //checks if user is in voice
         if (voice.channelID) {
