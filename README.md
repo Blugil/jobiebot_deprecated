@@ -10,7 +10,7 @@ This is handsdown my favorite personal project that I've made so far. I created 
 
 ## Final thoughts
 
-I imagine coding as a craft. Just like someone would use their woodworking skills or their art skills to make a handmade gift I was able to use my very limited programming skills to make a handmade gift. Programming is my way of expressing myself and my creativity.
+I imagine coding as a craft. Just like someone would use their woodworking skills or their art skills to make a handmade gift I was able to use my very limited programming skills to make a handmade gift. Programming is my way of expressing myself and my creativity and it's my way of creating something that can touch or improve the lives of others.
 
 ## How to download
 
