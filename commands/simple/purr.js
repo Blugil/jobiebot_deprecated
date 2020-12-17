@@ -23,10 +23,13 @@ class Purr extends commando.Command {
         //checks if user is in voice
         if (voice.channelID) {
             //joins the channel, returns a promise and a connection object
-            voice.channel.join().then((connection) => {
+            await voice.channel.join().then((connection) => {
 
                 //url of youtube video to play
                 let url = "https://www.youtube.com/watch?v=CY7t8ow2gOM&t=222s";
+
+                message.channel.send(`Purring for about ${time} seconds uwu`);
+                
                 //plays the audio from a youtube video
                 //the 'highWaterMark: 1 << 25' parameter fixed this, not sure why it didnt work but now it does...don't change it.
                 connection.play(ytdl(url, {quality: 'highestaudio',
