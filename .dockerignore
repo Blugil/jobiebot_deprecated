@@ -1,0 +1,4 @@
+config.json
+node_modules
+.env
+simple_migrate_script.js
