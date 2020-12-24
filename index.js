@@ -13,6 +13,8 @@ require('dotenv').config()
 const token = process.env.TOKEN;
 const channelID = process.env.CHANNEL_ID;
 
+let emote = '505132652437700642';
+
 //instantiates a new comando client with !jobie as command prefix and autoreconnect set to true
 const client = new Commando.Client(({
     owner: '193836298597826561',
@@ -25,7 +27,8 @@ const client = new Commando.Client(({
 client.registry.registerGroups(
         [
             ['simple', 'simple'],
-            ['complex', 'complex']
+            ['complex', 'complex'],
+            ['audio', 'audio']
         ])
     .registerDefaults()
     .registerCommandsIn(path.join(__dirname, "commands"));
@@ -49,7 +52,7 @@ client.on('disconnected', function () {
 
 //on message function
 client.on('message', function (message) {
-    react(message, channelID)
+    react(message, channelID, emote)
 });
 
 

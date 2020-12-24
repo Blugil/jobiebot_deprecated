@@ -15,7 +15,7 @@
     "discord.js-commando": "git+https://github.com/discordjs/Commando.git",
     "dotenv": "^8.2.0",
     "mongodb": "^3.6.3",
-    "ytdl-core": "^4.1.7",
+    "ytdl-core": "^4.2.1",
     "ytdl-core-discord": "^1.2.4"
   }
 }

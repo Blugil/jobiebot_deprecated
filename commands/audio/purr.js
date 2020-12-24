@@ -6,7 +6,7 @@ class Purr extends commando.Command {
     constructor(client) {
         super(client, {
             name: "purr",
-            group: "simple",
+            group: "audio",
             memberName: "purr",
             description: "The bot joins the voice channel and plays a purring sound"
         });
@@ -17,7 +17,7 @@ class Purr extends commando.Command {
         const { voice } = message.member;
 
         //splits the args string starting after the command prefix
-        const args = message.content.slice(this.client.commandPrefix.length).trim().split(' ');
+        const args = message.content.slice(this.client.commandPrefix.length).trim().split(' ');c
         //sets variable time to either the value of the second arg or 10 
         const time = (args[1] && Number.isInteger(parseInt(args[1])) ? args[1] : 10);
         //checks if user is in voice
