@@ -1,6 +1,6 @@
 const commando = require('discord.js-commando');
 const mongo = require('../../db/mongo');
-const getImages = require('../../db/getdoc');
+const getImages = require('../../db/get_images');
 
 const db_name = process.env.DB_NAME;
 const collection_name = process.env.COLLECTION_NAME;

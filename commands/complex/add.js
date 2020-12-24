@@ -1,5 +1,5 @@
 const commando = require('discord.js-commando');
-const getImages = require('../../db/getdoc');
+const getImages = require('../../db/get_images');
 const addImages = require('../../db/updatedoc');
 const mongo = require('../../db/mongo');
 
@@ -18,7 +18,7 @@ class Add extends commando.Command {
         });
     }
 
-    async run(message, args) {
+    async run(message) {
 
         //sets attachments equal to an array of discord message attachments
         let attachments = message.attachments.array();
