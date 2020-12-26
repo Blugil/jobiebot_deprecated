@@ -6,8 +6,7 @@
  * @param {Array} images array to be added to the document in the collection
  */
 module.exports = async function (mongo, dbName, collectionName, images) {
-    const db = mongo.db(dbName);
-    const col = db.collection(collectionName);
+    const col = mongo.db(dbName).collection(collectionName);
     await col.findOneAndUpdate({
         images: Array
     }, {
@@ -16,7 +15,9 @@ module.exports = async function (mongo, dbName, collectionName, images) {
         }
     }).then(function () {
         console.log('Document updated');
-    }).catch(e => {
-        console.error('There was an error: ' + e);
+        return 0;
+    }).catch(err => {
+        console.error('There was an error: ' + err);
+        return 1;
     });
 }
