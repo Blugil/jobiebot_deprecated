@@ -16,7 +16,6 @@ module.exports = async function (mongo, dbName, collectionName) {
             let array = myDoc.images;
             return array;
         }
-
         return null;
 
     } catch (err) {

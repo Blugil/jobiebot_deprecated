@@ -1,12 +1,15 @@
 const commando = require('discord.js-commando');
-const getImages = require('../../db/get_images');
-const addImages = require('../../db/updatedoc');
-const mongo = require('../../db/mongo');
+const getImages = require('../../db/images/get_images');
+const addImages = require('../../db/images/update_images');
+const mongo = require('../../db/mongo');    
+
+const {db} = require('../../config.json');
+const {images} = db.collections;
 
 require('dotenv').config();
 
 const db_name = process.env.DB_NAME;
-const collection_name = process.env.COLLECTION_NAME;
+const collection_name = images
 
 class Add extends commando.Command {
     constructor(client) {

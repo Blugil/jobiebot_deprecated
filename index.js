@@ -6,7 +6,7 @@ const dbConnect = require('./db/mongoconnect')
 
 //utility imports
 const react = require('./util/react');
-const logMessage = require('./messages/message_logs');
+const logMessage = require('./db/messages/message_logs');
 
 const path = require('path');
 require('dotenv').config()
@@ -35,28 +35,27 @@ client.registry.registerGroups(
     .registerCommandsIn(path.join(__dirname, "commands"));
 
 //bot on ready function, logs ready and attempts to set status 
-client.on('ready', function () {
+client.on('ready', () => {
     console.log("Bot is connected");
     dbConnect(mongo);
     client.user.setActivity('the thunder', {
         type: 'LISTENING'
-    }).catch(function (e) {
-        console.error('There was an error updating status');
+    }).catch(err => {
+        console.error('There was an error updating status: ' + err);
 
     })
 });
 
 //logs bot disconnected on bot disconnect
-client.on('disconnected', function () {
+client.on('disconnected', () => {
     console.log("disconnected")
 })
 
 //on message function
-client.on('message', function (message) {
+client.on('message', (message) => {
     react(message, emote);
-    logMessage(message);
+    logMessage(message, mongo, process.env.DB_NAME)
 });
-
 
 client.login(token);
 

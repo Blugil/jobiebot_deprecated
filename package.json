@@ -9,7 +9,7 @@
   },
   "author": "@Blugil",
   "license": "ISC",
-  "description": "Discord bot that sends images of my girlfriend's cat to a channel on command.",
+  "description": "Discord bot that sends images (ideally of a cat) to a channel on command.",
   "dependencies": {
     "@discordjs/opus": "^0.3.3",
     "discord.js": "^12.5.1",
