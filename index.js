@@ -6,12 +6,13 @@ const dbConnect = require('./db/mongoconnect')
 
 //utility imports
 const react = require('./util/react');
+const logMessage = require('./messages/message_logs');
+
 const path = require('path');
 require('dotenv').config()
 
 
 const token = process.env.TOKEN;
-const channelID = process.env.CHANNEL_ID;
 
 let emote = '505132652437700642';
 
@@ -52,7 +53,8 @@ client.on('disconnected', function () {
 
 //on message function
 client.on('message', function (message) {
-    react(message, channelID, emote)
+    react(message, emote);
+    logMessage(message);
 });
 
 
