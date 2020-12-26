@@ -1,10 +1,13 @@
 const commando = require('discord.js-commando');
 const random = require('../../util/random');
 const mongo = require('../../db/mongo');
-const getImages = require('../../db/get_images');
+const getImages = require('../../db/images/get_images');
+
+const {db} = require('../../config.json')
+const {images} = db.collections;
 
 const db_name = process.env.DB_NAME;
-const collection_name = process.env.COLLECTION_NAME;
+const collection_name = images
 
 class Spam extends commando.Command {
     constructor(client) {

@@ -1,7 +1,13 @@
 {
-    "User1": "discordID",
-    "User2": "discordID",
-    "discordID1": "Name1",
-    "discordID2": "Name2"
+    "log_users" : {
+        "User1": "user id 1",
+        "User2": "user id 2"
+    },
 
+    "db" : {
+        "collections" : {
+            "message_logs" : "collection name of logging messages",
+            "images" : "collection name of image links"
+        }
+    }
 }
