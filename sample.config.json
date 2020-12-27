@@ -1,4 +1,6 @@
 {
+    "prefix" : "preffered_prefix",
+    "owner" : "your discord id",
     "log_users" : {
         "User1": "user id 1",
         "User2": "user id 2"
@@ -9,5 +11,7 @@
             "message_logs" : "collection name of logging messages",
             "images" : "collection name of image links"
         }
-    }
+    },
+
+    "emote" : "emote_id"
 }
