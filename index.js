@@ -9,6 +9,7 @@ const path = require('path');
 require('dotenv').config();
 
 const {emote, prefix, owner} = require("./config.json");
+const permissions_generator = require('./util/permissions_generator');
 const token = process.env.TOKEN;
 
 //instantiates a new comando client with !jobie as command prefix and autoreconnect set to true
@@ -27,6 +28,9 @@ client.registry.registerGroups(
     ])
 .registerDefaults()
 .registerCommandsIn(path.join(__dirname, "commands"));
+
+//generates permissions.json file if it doesn't exist in directory
+permissions_generator();
 
 //bot on ready function, logs ready and attempts to set status 
 client.on('ready', () => {

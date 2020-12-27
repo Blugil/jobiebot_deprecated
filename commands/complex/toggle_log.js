@@ -16,15 +16,20 @@ class Log extends commando.Command {
         if (message.member.hasPermission("MANAGE_GUILD")) {
             if (args == "true" || args == "false") {
 
+                //opens the file to get permissions object
                 let permissions = JSON.parse(fs.readFileSync(path.join(__dirname, "../../permissions.json")));
 
+                //sets a new object with a key equal to the guild ID and toggles log between true and false
                 permissions[message.guild.id] = {
                     log: args,
                 }
 
+                //writes new object to file
                 fs.writeFileSync(path.join(__dirname, "../../permissions.json"), JSON.stringify(permissions), (err) => {
                     if (err) console.log(err);
                 })
+
+                //sends message confirming file write
                 await message.channel.send("Logging permissions were updated");
             }
             else {
