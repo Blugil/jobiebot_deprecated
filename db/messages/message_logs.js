@@ -15,9 +15,16 @@ module.exports = async function(message, mongo, dbName) {
 
     //reads the permissions from the permissions.json file
     let permissions = JSON.parse(fs.readFileSync(path.join(__dirname, "../../permissions.json")));
+    let log_permissions = ""
 
     //sets log_permissions equal to the value at the specified key or false if the key doens't exist
-    let log_permissions = permissions[message.guild.id] ? permissions[message.guild.id]["log"] : false;
+    if (message.guild) {
+        log_permissions = permissions[message.guild.id] ? permissions[message.guild.id]["log"] : "false";
+    }
+    else {
+        log_permissions = "false"
+    }
+    
 
     //loops through all keys in log_users
     for (let key in log_users) {
