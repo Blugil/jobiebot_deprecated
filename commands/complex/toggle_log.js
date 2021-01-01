@@ -12,11 +12,12 @@ class Log extends commando.Command {
         });
     }
 
-
     async run(message, args) {
         //checks if message has property memeber (detects if message comes from user in server)
         if (message.member) {
+
             if (message.member.hasPermission("MANAGE_GUILD")) {
+
                 if (args == "true" || args == "false") {
     
                     //opens the file to get permissions object
@@ -27,35 +28,26 @@ class Log extends commando.Command {
                     permissions[message.guild.id] = {
                         log: args,
                     }
-
                     //writes new object to file
                     fs.writeFileSync(path.join(__dirname, "../../permissions.json"), JSON.stringify(permissions), (err) => {
                         if (err) 
                             console.log(err);
                     })
-                    
                     //sends message confirming change
                     if (args == "true")
                         await message.channel.send("Surprise activated");
                     
                     else
                         await message.channel.send("Surprise deactivated");
-
                 }
-                else {
+                else  
                     await message.channel.send("Invalid arguments, please enter true or false to enable or disable the surprise.");
-                }
             }
-            else {
+            else  
                 await message.channel.send("You do not have permission to use this command.")
-            }
         }
-        
-        //if user isn't messaing from server let them know
-        else {
+        else  
             await message.channel.send("Can't use this command in a DM");
-        }
-        
     }
 }
 
