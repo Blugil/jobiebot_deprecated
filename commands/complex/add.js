@@ -20,36 +20,46 @@ class Add extends commando.Command {
         });
     }
 
-    async run(message) {
+    async run(message, args) {
 
-        //sets attachments equal to an array of discord message attachments
-        let attachments = message.attachments.array();
+        switch (command) {
+            case "image":
+                
+                //sets attachments equal to an array of discord message attachments
+                let attachments = message.attachments.array();
 
-        //sets images equal to an array of image links stored on a database
-        let images = await getImages(mongo, db_name, collection_name);
+                //sets images equal to an array of image links stored on a database
+                let images = await getImages(mongo, db_name, collection_name);
 
-        //checks if there are attachments in the message 
-        if (attachments.length > 0) {
+                //checks if there are attachments in the message 
+                if (attachments.length > 0) {
 
-            //pushes the urls from the message attachments to the image links array  
-            attachments.forEach(attachment => {
-                let url = attachment.url;
-                images.push(url);
-            });
+                    //pushes the urls from the message attachments to the image links array  
+                    attachments.forEach(attachment => {
+                        let url = attachment.url;
+                        images.push(url);
+                    });
 
-            //calls addImages to upload the new array of images to the database
-            await addImages(mongo, db_name, collection_name, images).then(
-                //sends success message in discord
-                await message.channel.send(`You attached ${attachments.length} images and I've worked some magic to upload all of them to the database.`)
+                    //calls addImages to upload the new array of images to the database
+                    await addImages(mongo, db_name, collection_name, images).then(
+                        //sends success message in discord
+                        await message.channel.send(`You attached ${attachments.length} images and I've worked some magic to upload all of them to the database.`)
 
-            ).catch(function (e) {
-                console.error('There was an error: ' + e);
-            });
-        } 
+                    ).catch(function (e) {
+                        console.error('There was an error: ' + e);
+                    });
+                } 
         
-        else {
-            await message.channel.send('No image attached! Try this command again with an image attachment.');
-        } 
+                else {
+                    await message.channel.send('No image attached! Try this command again with an image attachment.');
+                } 
+                break;
+        
+            default:
+                await message.channel.send(`${command} is not a valid command, please enter a valid command.`)
+                break;
+        }
+
         
     }
 }
