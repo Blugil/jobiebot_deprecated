@@ -1,12 +1,7 @@
 const {log_users} = require('../../config.json')
 const path = require('path');
 const fs = require('fs');   
-
-
-
-
 require('dotenv').config()
-
 
 module.exports = async function(message, mongo, dbName) {
 

@@ -12,6 +12,7 @@ class Log extends commando.Command {
         });
     }
 
+    //this is unbelievably bad code do not use this PLEASE
     async run(message, args) {
         //checks if message has property memeber (detects if message comes from user in server)
         if (message.member) {
@@ -34,20 +35,12 @@ class Log extends commando.Command {
                             console.log(err);
                     })
                     //sends message confirming change
-                    if (args == "true")
-                        await message.channel.send("Surprise activated");
+                    if (args == "true") await message.channel.send("Surprise activated");
                     
-                    else
-                        await message.channel.send("Surprise deactivated");
-                }
-                else  
-                    await message.channel.send("Invalid arguments, please enter true or false to enable or disable the surprise.");
-            }
-            else  
-                await message.channel.send("You do not have permission to use this command.")
-        }
-        else  
-            await message.channel.send("Can't use this command in a DM");
+                    else await message.channel.send("Surprise deactivated");
+                } else await message.channel.send("Invalid arguments, please enter true or false to enable or disable the surprise.");
+            } else await message.channel.send("You do not have permission to use this command.")
+        } else await message.channel.send("Can't use this command in a DM");
     }
 }
 

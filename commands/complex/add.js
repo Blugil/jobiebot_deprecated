@@ -2,9 +2,8 @@ const commando = require('discord.js-commando');
 const getImages = require('../../db/images/get_images');
 const addImages = require('../../db/images/update_images');
 const mongo = require('../../db/mongo');    
-
-const {db} = require('../../config.json');
-const {images} = db.collections;
+const { db } = require('../../config.json');
+const { images } = db.collections;
 
 require('dotenv').config();
 
@@ -41,13 +40,17 @@ class Add extends commando.Command {
             //calls addImages to upload the new array of images to the database
             await addImages(mongo, db_name, collection_name, images).then(
                 //sends success message in discord
-                await message.channel.send(`You attached ${attachments.length} images and I've worked some magic to upload all of them to the database (yes I promise they're there).`)
+                await message.channel.send(`You attached ${attachments.length} images and I've worked some magic to upload all of them to the database.`)
+
             ).catch(function (e) {
-                console.error('There was an error:' + e);
+                console.error('There was an error: ' + e);
             });
-        } else {
-            await message.channel.send('No image attached! Try this command again with an image attachment.')
-        }
+        } 
+        
+        else {
+            await message.channel.send('No image attached! Try this command again with an image attachment.');
+        } 
+        
     }
 }
 
