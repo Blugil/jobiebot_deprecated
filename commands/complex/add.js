@@ -3,12 +3,14 @@ const getImages = require('../../db/images/get_images');
 const addImages = require('../../db/images/update_images');
 const mongo = require('../../db/mongo');    
 const { db } = require('../../config.json');
-const { images } = db.collections;
+const { images, purring_link } = db.collections;
+const addAudio = require('../../db/audio/add_audio');
 
 require('dotenv').config();
 
 const db_name = process.env.DB_NAME;
 const collection_name = images
+const collection_purring =  purring_link;
 
 class Add extends commando.Command {
     constructor(client) {
@@ -16,12 +18,16 @@ class Add extends commando.Command {
             name: "add",
             group: "complex",
             memberName: "add",
-            description: "Adds an image to the images database"
+            description: "Enter 'image' or 'purr' to add new images or a new purring sound respectively.",
+            argsType: "multiple"
         });
     }
 
     async run(message, args) {
 
+        //sets command equal to first argument
+        let command = args[0];
+        console.log(collection_purring);
         switch (command) {
             case "image":
                 
@@ -54,13 +60,31 @@ class Add extends commando.Command {
                     await message.channel.send('No image attached! Try this command again with an image attachment.');
                 } 
                 break;
-        
+            
+            case "purr":
+
+                //if there is a second argument, set video_link to it and if not make it an empty string
+                const video_link = args[1] ? args[1] : "Empty link";
+
+                let success = addAudio(mongo, video_link, db_name, collection_purring);
+                
+                //addAudio() returns 1 or 0 if video is youtube link
+                if (success == 0) {
+                    await message.channel.send(`${video_link} is not a valid youtube link`);
+                }
+                else {
+
+                    await message.channel.send(`${video_link} was added to the database.`);
+                }
+
+                break;
+            case "help":
+                await message.channel.send(`Hello ${message.author}, all available options are: 'image', 'purr', and 'help'.`);
+                break;
             default:
                 await message.channel.send(`${command} is not a valid command, please enter a valid command.`)
                 break;
         }
-
-        
     }
 }
 
