@@ -20,5 +20,6 @@ module.exports = async function (mongo, dbName, collectionName) {
 
     } catch (err) {
         console.log(err.stack);
+        return null;
     }
 }

@@ -9,7 +9,8 @@
     "db" : {
         "collections" : {
             "message_logs" : "collection name of logging messages",
-            "images" : "collection name of image links"
+            "images" : "collection name of image links",
+            "purr_link" : "collection name of youtube link"
         }
     },
 

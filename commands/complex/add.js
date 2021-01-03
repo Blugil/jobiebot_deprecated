@@ -1,6 +1,6 @@
 const commando = require('discord.js-commando');
 const getImages = require('../../db/images/get_images');
-const addImages = require('../../db/images/update_images');
+const addImages = require('../../db/images/add_images');
 const mongo = require('../../db/mongo');    
 const { db } = require('../../config.json');
 const { images, purring_link } = db.collections;
