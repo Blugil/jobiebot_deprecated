@@ -9,8 +9,12 @@ const path = require('path');
 require('dotenv').config();
 
 const {emote, prefix, owner} = require("./config.json");
-const permissions_generator = require('./util/permissions_generator');
+const generatePermissions = require('./util/permissions_generator');
 const token = process.env.TOKEN;
+const dbName = process.env.DB_NAME;
+
+//generates permissions.json file at program initial start
+generatePermissions();
 
 //instantiates a new comando client with !jobie as command prefix and autoreconnect set to true
 const client = new Commando.Client(({
@@ -30,7 +34,6 @@ client.registry.registerGroups(
 .registerCommandsIn(path.join(__dirname, "commands"));
 
 //generates permissions.json file if it doesn't exist in directory
-permissions_generator();
 
 //bot on ready function, logs ready and attempts to set status 
 client.on('ready', () => {
@@ -51,10 +54,10 @@ client.on('disconnected', () => {
 
 //on message function
 client.on('message', (message) => {
+    //reacts to messages containing 'odie' or 'jobie'
     react(message, emote);
-    logMessage(message, mongo, process.env.DB_NAME)
+    //logs messages
+    logMessage(message, mongo, dbName);
 });
 
 client.login(token);
-
-module.exports = client;

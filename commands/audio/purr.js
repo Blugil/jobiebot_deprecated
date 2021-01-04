@@ -52,6 +52,7 @@ class Purr extends commando.Command {
             
             }).catch((error) => {
                 console.log(error);
+                voice.channel.leave();
             });
 
             //sets a timeout for the bot to disconnect after the specified amount of time or 10 seconds if no time was specified
