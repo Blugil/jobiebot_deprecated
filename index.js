@@ -28,7 +28,8 @@ client.registry.registerGroups(
     [
         ['simple', 'simple'],
         ['complex', 'complex'],
-        ['audio', 'audio']
+        ['audio', 'audio'],
+        ['games', 'fun games 2 play'] 
     ])
 .registerDefaults()
 .registerCommandsIn(path.join(__dirname, "commands"));
