@@ -20,27 +20,8 @@ class Play extends commando.Command {
             
             case 'tictactoe':
 
-                await message.channel.send(`${message.author} please mention the player you are challenging to tictactoe within 30 seconds: `);
-                //make something like this that loops to check for message replies
-                //while loop causes heap overflow from creating so many listeners
-                this.client.once('message', (message) => {
-
-                    let mentioned_users = [];
-                    
-                    //maps mentioned users to array
-                    message.mentions.users.forEach((user) => {
-                        array.push(user.id);
-                    });
-                    //makes sure only one user is mentioned
-                    if (mentioned_users.length != 1) {
-                        message.channel.send(`${message.author}, you can only challenge one user.`);
-                        this.challenge(mentioned_users);
-                    }
-                    else {
-                        message.channel.send(`You've challenged someone`);
-                        return mentioned_users;
-                    }
-                })
+                //scrapping the original idea and working on something new
+                //old idea was bad and functioned poorly new idea wont be :)
 
                 break;
 
