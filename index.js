@@ -26,10 +26,10 @@ const client = new Commando.Client(({
 //registers the commands
 client.registry.registerGroups(
     [
-        ['simple', 'simple'],
-        ['complex', 'complex'],
-        ['audio', 'audio'],
-        ['games', 'fun games 2 play'] 
+        ['simple', 'Basic bot commands'],
+        ['complex', 'More complex stuff'],
+        ['audio', 'Audio related commands'],
+        ['games', 'Fun two-player games to play'] 
     ])
 .registerDefaults()
 .registerCommandsIn(path.join(__dirname, "commands"));

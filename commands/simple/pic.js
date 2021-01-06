@@ -14,7 +14,7 @@ class Pic extends commando.Command {
             name: "pic",
             group: "simple",
             memberName: "pic",
-            description: "Sends a picture of my girlfriends cat Odie chosen at random from a large pool"
+            description: "Sends a picture of Odie chosen at random from a large pool"
         });
     }
 
