@@ -12,6 +12,7 @@ const {emote, prefix, owner} = require("./config.json");
 const generatePermissions = require('./util/permissions_generator');
 const token = process.env.TOKEN;
 const dbName = process.env.DB_NAME;
+const fs = require('fs');
 
 //generates permissions.json file at program initial start
 generatePermissions();
@@ -58,7 +59,53 @@ client.on('message', (message) => {
     //reacts to messages containing 'odie' or 'jobie'
     react(message, emote);
     //logs messages
-    logMessage(message, mongo, dbName);
+    //logMessage(message, mongo, dbName);
 });
+client.on('voiceStateUpdate', (voice) => {
 
+    let current_in_voice = 0;
+    voice.member.voice.channel.members.forEach((member) => {
+        current_in_voice += 1
+    });
+    console.log(current_in_voice);
+
+    let call = JSON.parse(fs.readFileSync(path.join(__dirname, "./call.json")));
+
+    let previous_in_voice = call[message.guild.id][current_in_voice];
+
+    call[message.guild.id] = {
+        current_in_voice: current_in_voice,
+    }
+    //writes new object to file
+
+    if(current_in_voice >= 2 && previous_in_voice <= 1) {
+        call["join_time"] = {
+            "start_date": Date.now(),
+            "curr_date": Date.now(),
+        }
+    }
+    else if(current_in_voice >= 2) {
+        call["join_time"] = {
+            "curr_date": Date.now(),
+        }
+    }
+    else if (current_in_voice <= 1 && previous_in_voice >= 2) {
+        call["join_time"] = {
+            "curr_date": Date.now(),
+            "end_date": Date.now(),
+        }
+
+        if (call["join_time"].hasOwnProperty("start_date")) {
+            console.log(call["join_time"]["end_date"] - call["join_time"]["start_date"]);
+        }
+        else {
+            console.log("weird bug, no starting date");
+        }
+    }
+
+    fs.writeFileSync(path.join(__dirname, "./call.json"), JSON.stringify(call), (err) => {
+        if (err) 
+            console.log(err);
+    })
+})
 client.login(token);
