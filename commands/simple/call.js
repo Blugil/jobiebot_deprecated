@@ -15,7 +15,19 @@ class Call extends commando.Command {
 
     async run(message, args) {
 
+		console.log(args[0]);
+
 		let call_state = JSON.parse(fs.readFileSync(path.join(__dirname, "../../call.json")));
+
+		if (args == "record") {
+			let record = "call_record" in call_state ? call_state["call_record"] : 0;
+			if (record == 0) {
+				await message.channel.send("There is no current call record!");
+				return;
+			}
+			await message.channel.send(`The current call record is: ${time_display(record)}!`);
+			return;
+		}
 
 		let call_start = "call_start" in call_state ? new Date(call_state["call_start"]) : 0;
 		let current_date = new Date();
@@ -24,14 +36,7 @@ class Call extends commando.Command {
 			await message.channel.send("There is currently no active call!");
 		}
 		else {
-			let time_dict = time_display(current_date - call_start);
-			let string = "";
-			string = time_dict["days"] > 0 ? time_dict["days"] + " days " : "";
-			string = time_dict["hours"] > 0 ? string + time_dict["hours"] + " hours ": string + "";
-			string = time_dict["minutes"] > 0 ? string + time_dict["minutes"] + " minutes ": string + "";
-			string = time_dict["seconds"] > 0 ? string + time_dict["seconds"] + " seconds": string + "";
-
-			await message.channel.send(`There has been a call going for: ${string}`);
+			await message.channel.send(`There has been a call going for: ${time_display(current_date - call_start)}!`);
 		}
 		
     }

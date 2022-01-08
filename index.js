@@ -65,6 +65,6 @@ client.on('message', (message) => {
     //logMessage(message, mongo, dbName);
 });
 client.on('voiceStateUpdate', (voice) => {
-    call_timer(voice);
+    call_timer(voice, client);
 })
 client.login(token);

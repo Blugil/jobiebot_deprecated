@@ -9,7 +9,6 @@ require('dotenv').config();
 
 const db_name = process.env.DB_NAME;
 const collection_name = images
-const collection_purring =  purring_link;
 
 class Add extends commando.Command {
     constructor(client) {

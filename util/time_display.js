@@ -2,15 +2,11 @@ module.exports = function(times) {
 
 	let time_dict = {};
 	
-
 	//converts input into seconds
 	let time = times / 1000;
 	let days = 60 * 60 * 24;
 	let hours = 60 * 24;
 	let minutes = 60;
-
-	console.log(time);
-
 
 	time_dict["days"] = Math.floor(time / days);
 	time = time - time_dict["days"] * days;
@@ -23,19 +19,12 @@ module.exports = function(times) {
 
 	time_dict["seconds"] = Math.floor(time);
 
-	// time_dict["days"] = days % time == days ? days % time : 0;
-	// time = time - (time_dict["days"] * days);
+	let string = "";
+	string = time_dict["days"] > 0 ? time_dict["days"] + " days " : "";
+	string = time_dict["hours"] > 0 ? string + time_dict["hours"] + " hours ": string + "";
+	string = time_dict["minutes"] > 0 ? string + time_dict["minutes"] + " minutes ": string + "";
+	string = time_dict["seconds"] > 0 ? string + time_dict["seconds"] + " seconds": string + "";
 
-	// time_dict["hours"] = hours % time == hours ? hours % time : 0;
-	// time = time - (time_dict["hours"] * hours);
-
-	// time_dict["minutes"] = minutes % time == minutes ? minutes % time : 0;
-	// time = time - (time_dict["minutes"] * minutes);
-
-	// time_dict["seconds"] = time;
-
-	console.log(time_dict);
-
-	return time_dict;
+	return string;
 
 }
