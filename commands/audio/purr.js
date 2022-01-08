@@ -1,10 +1,5 @@
 const commando = require('discord.js-commando');
 const ytdl = require('ytdl-core');
-const getAudio = require('../../db/audio/get_audio');
-const mongo = require('../../db/mongo');
-const { db } = require('../../config.json');
-// const { purring_link } = db.collections;
-const dbName = process.env.DB_NAME;
 
 class Purr extends commando.Command {
     constructor(client) {

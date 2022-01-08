@@ -4,7 +4,6 @@ const addImages = require('../../db/images/add_images');
 const mongo = require('../../db/mongo');    
 const { db } = require('../../config.json');
 const { images, purring_link } = db.collections;
-const addAudio = require('../../db/audio/add_audio');
 
 require('dotenv').config();
 
