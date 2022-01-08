@@ -26,65 +26,33 @@ class Add extends commando.Command {
     async run(message, args) {
 
         //sets command equal to first argument
-        let command = args[0];
-        console.log(collection_purring);
-        switch (command) {
-            case "image":
-                
-                //sets attachments equal to an array of discord message attachments
-                let attachments = message.attachments.array();
+        let attachments = message.attachments.array();
 
-                //sets images equal to an array of image links stored on a database
-                let images = await getImages(mongo, db_name, collection_name);
+        //sets images equal to an array of image links stored on a database
+        let images = await getImages(mongo, db_name, collection_name);
 
-                //checks if there are attachments in the message 
-                if (attachments.length > 0) {
+        //checks if there are attachments in the message 
+        if (attachments.length > 0) {
 
-                    //pushes the urls from the message attachments to the image links array  
-                    attachments.forEach(attachment => {
-                        let url = attachment.url;
-                        images.push(url);
-                    });
+            //pushes the urls from the message attachments to the image links array  
+            attachments.forEach(attachment => {
+                let url = attachment.url;
+                images.push(url);
+            });
 
-                    //calls addImages to upload the new array of images to the database
-                    await addImages(mongo, db_name, collection_name, images).then(
-                        //sends success message in discord
-                        await message.channel.send(`You attached ${attachments.length} images and I've worked some magic to upload all of them to the database.`)
+            //calls addImages to upload the new array of images to the database
+            await addImages(mongo, db_name, collection_name, images).then(
+                //sends success message in discord
+                await message.channel.send(`You attached ${attachments.length} images and I've worked some magic to upload all of them to the database.`)
 
-                    ).catch(function (e) {
-                        console.error('There was an error: ' + e);
-                    });
-                } 
-        
-                else {
-                    await message.channel.send('No image attached! Try this command again with an image attachment.');
-                } 
-                break;
-            
-            case "purr":
+            ).catch(function (e) {
+                console.error('There was an error: ' + e);
+            });
+        } 
 
-                //if there is a second argument, set video_link to it and if not make it an empty string
-                const video_link = args[1] ? args[1] : "Empty link";
-
-                let success = addAudio(mongo, video_link, db_name, collection_purring);
-                
-                //addAudio() returns 1 or 0 if video is youtube link
-                if (success == 0) {
-                    await message.channel.send(`${video_link} is not a valid youtube link`);
-                }
-                else {
-
-                    await message.channel.send(`${video_link} was added to the database.`);
-                }
-
-                break;
-            case "help":
-                await message.channel.send(`Hello ${message.author}, all available options are: 'image', 'purr', and 'help'.`);
-                break;
-            default:
-                await message.channel.send(`${command} is not a valid command, please enter a valid command.`)
-                break;
-        }
+        else {
+            await message.channel.send('No image attached! Try this command again with an image attachment.');
+        } 
     }
 }
 

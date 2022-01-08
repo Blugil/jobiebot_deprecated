@@ -13,9 +13,12 @@ const generatePermissions = require('./util/permissions_generator');
 const token = process.env.TOKEN;
 const dbName = process.env.DB_NAME;
 const fs = require('fs');
+const { start } = require('repl');
+const call_timer = require('./util/call_timer');
 
 //generates permissions.json file at program initial start
-generatePermissions();
+generatePermissions("permissions");
+generatePermissions("call");
 
 //instantiates a new comando client with !jobie as command prefix and autoreconnect set to true
 const client = new Commando.Client(({
@@ -62,50 +65,6 @@ client.on('message', (message) => {
     //logMessage(message, mongo, dbName);
 });
 client.on('voiceStateUpdate', (voice) => {
-
-    let current_in_voice = 0;
-    voice.member.voice.channel.members.forEach((member) => {
-        current_in_voice += 1
-    });
-    console.log(current_in_voice);
-
-    let call = JSON.parse(fs.readFileSync(path.join(__dirname, "./call.json")));
-
-    let previous_in_voice = call[message.guild.id][current_in_voice];
-
-    call[message.guild.id] = {
-        current_in_voice: current_in_voice,
-    }
-    //writes new object to file
-
-    if(current_in_voice >= 2 && previous_in_voice <= 1) {
-        call["join_time"] = {
-            "start_date": Date.now(),
-            "curr_date": Date.now(),
-        }
-    }
-    else if(current_in_voice >= 2) {
-        call["join_time"] = {
-            "curr_date": Date.now(),
-        }
-    }
-    else if (current_in_voice <= 1 && previous_in_voice >= 2) {
-        call["join_time"] = {
-            "curr_date": Date.now(),
-            "end_date": Date.now(),
-        }
-
-        if (call["join_time"].hasOwnProperty("start_date")) {
-            console.log(call["join_time"]["end_date"] - call["join_time"]["start_date"]);
-        }
-        else {
-            console.log("weird bug, no starting date");
-        }
-    }
-
-    fs.writeFileSync(path.join(__dirname, "./call.json"), JSON.stringify(call), (err) => {
-        if (err) 
-            console.log(err);
-    })
+    call_timer(voice);
 })
 client.login(token);

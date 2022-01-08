@@ -3,7 +3,7 @@ const ytdl = require('ytdl-core');
 const getAudio = require('../../db/audio/get_audio');
 const mongo = require('../../db/mongo');
 const { db } = require('../../config.json');
-const { purring_link } = db.collections;
+// const { purring_link } = db.collections;
 const dbName = process.env.DB_NAME;
 
 class Purr extends commando.Command {
@@ -31,7 +31,7 @@ class Purr extends commando.Command {
         if (voice.channelID) {
 
             //url of youtube video to play
-            const url = await getAudio(mongo, dbName, purring_link);
+            const url = "https://www.youtube.com/watch?v=lkmDy5CnjqU" // await getAudio(mongo, dbName, purring_link);
 
             //joins the channel, returns a promise and a connection object
             await voice.channel.join().then((connection) => {
