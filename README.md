@@ -2,6 +2,9 @@
 
 ## What is jobiebot?
 
+a discord bot that specifically sends my WIFE’S cat Odiferous Odin - my wife
+
+
 JobieBot is a simple Discord bot written with the Discord.js framework and Node.js runtime. It is designed to post an image link every time a command is called and allows for uploading of images taking advantage of Discord's CDN for image hosting. Image links are hosted and read from/updated to a MongoDB Atlas database, a NoSQL cloud database solution.
 
 ## Why is jobiebot?
